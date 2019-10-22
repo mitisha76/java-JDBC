@@ -18,10 +18,13 @@ data()
 try
 {
 Class.forName("com.mysql.jdbc.Driver");
-conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/schedule","root","");
+  //change user username , password and port number and database name 
+  //my databsename is schedule and portnumber is 3306(default)
+conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/schedule","username","******");
 stmt=conn.createStatement();
 sc=new Scanner(System.in);
 }
+  //if jdbc is unable to connect to database , exception will be thrown
 catch(Exception  e)
 {
 System.out.println("Connection failed");
@@ -38,6 +41,7 @@ System.out.println("Enter time of event");
 time=sc.next();
 System.out.println("Enter event name");
 event=sc.next();
+//my database contains 3 coloumn  data,time,event
 query="insert into schedule values('"+date+"','"+time+"','"+event+"')";
 stmt.execute(query);
 System.out.println("------Data recorded Succesfuly-----");
@@ -100,7 +104,7 @@ System.out.println(pointer.getString(3));
 }
 else if(choice==3)
 {
-
+//getting all the data from database schedule
 query3="select * from schedule";
 ResultSet pointer=stmt.executeQuery(query3);
 while(pointer.next())
